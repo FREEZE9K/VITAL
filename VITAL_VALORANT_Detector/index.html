@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#09090c">
+  <meta name="description" content="VITAL Gaming Health Assistant — stay aware, play better.">
+  <title>VITAL — Gaming Health Assistant</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar">
+    <a class="brand" href="#dashboard"><span class="brand-mark">V</span><span>V I T A L</span></a>
+    <nav>
+      <button class="nav active" data-page="dashboard">▦ <span>Dashboard</span></button>
+      <button class="nav" data-page="hub">◎ <span>Tactical Hub</span></button>
+      <button class="nav" data-page="history">≡ <span>Log History</span></button>
+      <button class="nav" data-page="settings">⚙ <span>Settings</span></button>
+    </nav>
+    <div class="sidebar-bottom"><span>◉ This browser</span><small>STAY AWARE. PLAY BETTER.</small></div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div id="game-state">◉ &nbsp; Detector connecting...</div>
+      <div class="clock" id="clock">--:--:--</div>
+    </header>
+
+    <section class="page active" id="page-dashboard">
+      <div class="metrics">
+        <div class="metric"><small>◷ SESSION</small><strong id="session-time">00:00</strong></div>
+        <div class="metric"><small>◉ EYE REST</small><strong id="eye-countdown">20:00</strong></div>
+        <div class="metric"><small>◴ BREAK</small><strong id="break-countdown">60:00</strong></div>
+        <div class="metric water-metric"><small>♨ WATER</small><strong id="water-total">0 ml</strong></div>
+        <div class="metric"><small>ϟ ENERGY</small><strong id="energy">100%</strong></div>
+      </div>
+
+      <div class="hero-grid">
+        <article class="panel companion">
+          <div class="panel-heading"><span>MODE</span><b id="mode-badge" class="pill green">READY</b></div>
+          <div class="companion-stage">
+            <div class="mascot">🐻‍❄️</div>
+            <div><h2 id="companion-title">YOUR COMPANION</h2><p id="companion-message">Ready when you are.<br>Play smart. Take breaks.</p></div>
+          </div>
+          <div class="session-controls">
+            <button class="btn primary" id="start-btn">▶ Start gaming session</button>
+            <button class="btn" id="stop-btn" disabled>■ End session</button>
+            <span class="hint" id="detector-hint">VALORANT auto-detection: connecting to Windows helper…</span>
+          </div>
+        </article>
+
+        <article class="panel quick">
+          <div class="panel-heading"><span>QUICK ACTIONS</span></div>
+          <button class="btn primary wide" id="stretch-btn">↗ Quick stretches</button>
+          <div class="button-row">
+            <button class="btn" data-water="250">+250 ml</button>
+            <button class="btn" data-water="500">+500 ml</button>
+          </div>
+          <div class="custom-water"><input id="custom-ml" type="number" min="1" max="5000" placeholder="Custom amount"><span>ml</span></div>
+          <button class="btn wide" id="log-water-btn">♨ Log water</button>
+          <button class="btn wide subtle" id="break-btn">Take a 5-minute break</button>
+        </article>
+      </div>
+
+      <article class="panel insights">
+        <div class="panel-heading"><span>SESSION INSIGHTS</span><span class="muted">TODAY</span></div>
+        <div class="insight-row"><span>◉ Active time today</span><b id="today-time">0m</b></div>
+        <div class="insight-row"><span>↗ Breaks taken</span><b id="breaks">0</b></div>
+        <div class="insight-row"><span>✦ Stretch sessions</span><b id="stretches">0</b></div>
+        <div class="insight-row"><span>◉ Eye rests logged</span><b id="eyes">0</b></div>
+      </article>
+
+      <div class="status-grid">
+        <article class="panel status-card"><small>HYDRATION</small><div class="status-inner red"><strong id="hydration-pct">0%</strong><span id="hydration-amount">0 / 2,000 ml</span><b id="hydration-label">KEEP HYDRATING</b></div></article>
+        <article class="panel status-card"><small>ENERGY STORE</small><div class="status-inner teal"><strong id="energy-big">100%</strong><span>SESSION COMFORT INDICATOR</span><b>TAKE REGULAR PAUSES</b></div></article>
+        <article class="panel status-card"><small>MOBILITY</small><div class="status-inner teal"><strong id="mobility-pct">0%</strong><span>STRETCH LOGS</span><b id="mobility-label">MOVE A LITTLE</b></div></article>
+      </div>
+    </section>
+
+    <section class="page" id="page-hub">
+      <h1>TACTICAL HUB</h1><p class="page-subtitle">Small wellness actions for your next pause.</p>
+      <div class="action-list">
+        <div class="panel action-item"><div><h3>Hydration</h3><p>Log a drink of water.</p></div><button class="btn primary" data-water="250">Log 250 ml</button></div>
+        <div class="panel action-item"><div><h3>Mobility</h3><p>Stand up and move comfortably.</p></div><button class="btn primary" id="hub-stretch">Log stretch</button></div>
+        <div class="panel action-item"><div><h3>Eye reset</h3><p>Look away from the screen into the distance.</p></div><button class="btn primary" id="eye-btn">Log eye rest</button></div>
+        <div class="panel action-item"><div><h3>Break</h3><p>Take a short pause away from the game.</p></div><button class="btn primary" id="hub-break">Start break</button></div>
+      </div>
+    </section>
+
+    <section class="page" id="page-history">
+      <h1>LOG HISTORY</h1><p class="page-subtitle">Your recent sessions and wellness actions. Stored only in this browser.</p>
+      <div class="panel history" id="history-list">No activity yet.</div>
+    </section>
+
+    <section class="page" id="page-settings">
+      <h1>SETTINGS</h1><p class="page-subtitle">Choose reminder intervals that work for you.</p>
+      <form class="panel settings-form" id="settings-form">
+        <label>Break reminder (minutes)<input name="break_minutes" type="number" min="1" max="10000" required></label>
+        <label>Water reminder (minutes)<input name="water_minutes" type="number" min="1" max="10000" required></label>
+        <label>Stretch reminder (minutes)<input name="stretch_minutes" type="number" min="1" max="10000" required></label>
+        <label>Eye rest reminder (minutes)<input name="eye_minutes" type="number" min="1" max="10000" required></label>
+        <label>Daily water goal (ml)<input name="daily_water_goal" type="number" min="1" max="10000" required></label>
+        <button class="btn primary" type="submit">Save settings</button>
+      </form>
+      <p class="privacy-note">VITAL stores your settings and activity in this browser using local storage. It does not upload your personal data to a server. Data is not synchronized between devices.</p>
+    </section>
+    <footer class="footer">VITAL is a wellness companion, not a medical device. Take breaks that feel comfortable for you.</footer>
+  </main>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="script.js"></script>
+</body>
+</html>
